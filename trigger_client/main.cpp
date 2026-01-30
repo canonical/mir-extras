@@ -152,6 +152,7 @@ void register_trigger(
 
     ext_input_trigger_action_control_v1_destroy(control);
 }
+}
 
 void register_keycode_trigger(
     wl_display* display,
