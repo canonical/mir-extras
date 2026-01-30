@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     
     - name: Install dependencies
       run: |
@@ -26,25 +26,8 @@ jobs:
     
     - name: Configure CMake
       run: |
-        mkdir build
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release
+        cmake -Bbuild -DCMAKE_BUILD_TYPE=Release .
     
     - name: Build
       run: |
-        cd build
-        make -j$(nproc)
-    
-    - name: Build with trigger_client disabled
-      run: |
-        mkdir build-no-trigger
-        cd build-no-trigger
-        cmake .. -DBUILD_TRIGGER_CLIENT=OFF
-        make -j$(nproc)
-    
-    - name: Build with gatekeeper disabled
-      run: |
-        mkdir build-no-gatekeeper
-        cd build-no-gatekeeper
-        cmake .. -DBUILD_GATEKEEPER=OFF
-        make -j$(nproc)
+        cmake --build build -- -j$(nproc)

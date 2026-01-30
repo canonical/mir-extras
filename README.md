@@ -58,16 +58,6 @@ cmake -DBUILD_TRIGGER_CLIENT=OFF ..  # Skip trigger_client
 cmake -DBUILD_GATEKEEPER=OFF ..      # Skip gatekeeper
 ```
 
-## Installing
-
-```bash
-sudo make install
-```
-
-This will install:
-- `trigger_client` executable to `/usr/local/bin` (if built)
-- `gatekeeper.py`, `test_client.py`, and `generate_protocols.py` to `/usr/local/bin`
-
 ## Running
 
 ### trigger_client
@@ -75,19 +65,14 @@ This will install:
 The trigger_client requires a Wayland compositor that implements the ext-input-trigger protocol:
 
 ```bash
-trigger_client
+./build/trigger_client/trigger_client
 ```
 
 ### gatekeeper
 
-Before running gatekeeper, you need to generate the Python protocol bindings:
+The Python protocol bindings are automatically generated during the build process (requires pywayland).
 
-```bash
-cd gatekeeper
-python3 generate_protocols.py
-```
-
-Then run the gatekeeper:
+Run the gatekeeper:
 
 ```bash
 ./gatekeeper.py

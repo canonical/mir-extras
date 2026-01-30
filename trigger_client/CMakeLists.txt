@@ -69,5 +69,3 @@ add_executable(trigger_client main.cpp ${GENERATED_SOURCES})
 # make the example use the generated headers and link the generated code
 target_include_directories(trigger_client PRIVATE ${GEN_DIR})
 target_link_libraries(trigger_client PRIVATE PkgConfig::XKBCOMMON PkgConfig::WAYLAND_CLIENT)
-
-install(TARGETS trigger_client DESTINATION bin)
