@@ -152,7 +152,6 @@ void register_trigger(
 
     ext_input_trigger_action_control_v1_destroy(control);
 }
-}
 
 void register_keycode_trigger(
     wl_display* display,
@@ -254,16 +253,16 @@ int main(int /*argc*/, char** /*argv*/)
     // Scancode 44 is the physical 'Z' key position on QWERTY keyboards
     ActionContext alt_z_ctx{
         "ALT + Z (scancode 44)", "Hello from ALT + Z (keycode trigger)", "Bye from ALT + Z (keycode trigger)"};
-    ext_input_trigger_v1* alt_backtick_trigger = nullptr;
-    ext_input_trigger_action_v1* alt_backtick_action = nullptr;
+    ext_input_trigger_v1* alt_z_trigger = nullptr;
+    ext_input_trigger_action_v1* alt_z_action = nullptr;
 
     register_keycode_trigger(
         display,
         EXT_INPUT_TRIGGER_REGISTRATION_MANAGER_V1_MODIFIERS_ALT,
         44, // scancode for Z key position
         &alt_z_ctx,
-        &alt_backtick_trigger,
-        &alt_backtick_action);
+        &alt_z_trigger,
+        &alt_z_action);
 
     std::cout << "\nAll triggers registered:\n";
     std::cout << "  - Ctrl+Shift+C (keysym trigger)\n";
@@ -283,10 +282,10 @@ int main(int /*argc*/, char** /*argv*/)
         ext_input_trigger_action_v1_destroy(alt_x_action);
     if (alt_x_trigger)
         ext_input_trigger_v1_destroy(alt_x_trigger);
-    if (alt_backtick_action)
-        ext_input_trigger_action_v1_destroy(alt_backtick_action);
-    if (alt_backtick_trigger)
-        ext_input_trigger_v1_destroy(alt_backtick_trigger);
+    if (alt_z_action)
+        ext_input_trigger_action_v1_destroy(alt_z_action);
+    if (alt_z_trigger)
+        ext_input_trigger_v1_destroy(alt_z_trigger);
 
     if (registration_manager)
         ext_input_trigger_registration_manager_v1_destroy(registration_manager);

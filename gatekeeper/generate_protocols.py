@@ -5,9 +5,9 @@ from pywayland.scanner import Protocol
 def main():
     # Determine paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Assuming the script is in mir/examples/gatekeeper/
-    # and protocols are in mir/wayland-protocols/
-    project_root = os.path.abspath(os.path.join(script_dir, "../.."))
+    # The script is in mir-extras/gatekeeper/
+    # and protocols are in mir-extras/wayland-protocols/
+    project_root = os.path.abspath(os.path.join(script_dir, ".."))
     protocols_path = os.path.join(project_root, "wayland-protocols")
 
     output_path = os.path.join(script_dir, "protocols")
