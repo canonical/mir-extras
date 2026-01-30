@@ -1,8 +1,28 @@
-find_package(PkgConfig REQUIRED)
-find_program(WAYLAND_SCANNER wayland-scanner REQUIRED)
+find_package(PkgConfig)
+find_program(WAYLAND_SCANNER wayland-scanner)
 
-pkg_check_modules(WAYLAND_CLIENT REQUIRED IMPORTED_TARGET wayland-client)
-pkg_check_modules(XKBCOMMON REQUIRED IMPORTED_TARGET xkbcommon)
+if(NOT PkgConfig_FOUND)
+    message(WARNING "PkgConfig not found, skipping trigger_client build")
+    return()
+endif()
+
+if(NOT WAYLAND_SCANNER)
+    message(WARNING "wayland-scanner not found, skipping trigger_client build")
+    return()
+endif()
+
+pkg_check_modules(WAYLAND_CLIENT IMPORTED_TARGET wayland-client)
+pkg_check_modules(XKBCOMMON IMPORTED_TARGET xkbcommon)
+
+if(NOT WAYLAND_CLIENT_FOUND)
+    message(WARNING "wayland-client not found, skipping trigger_client build")
+    return()
+endif()
+
+if(NOT XKBCOMMON_FOUND)
+    message(WARNING "xkbcommon not found, skipping trigger_client build")
+    return()
+endif()
 
 # where to place generated headers/sources for this example
 set(GEN_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)

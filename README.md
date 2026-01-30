@@ -13,6 +13,7 @@ A standalone Wayland client that demonstrates the input trigger protocol. It reg
 **Requirements:**
 - wayland-client
 - xkbcommon
+- wayland-scanner (build-time)
 
 ### gatekeeper
 
@@ -26,11 +27,35 @@ A Python-based GTK4 application that implements a D-Bus portal for managing glob
 
 ## Building
 
+### Ubuntu/Debian
+
+Install dependencies:
+
+```bash
+# For trigger_client
+sudo apt install libwayland-dev libxkbcommon-dev wayland-protocols
+
+# For gatekeeper
+sudo apt install python3 python3-gi gir1.2-gtk-4.0
+pip3 install pywayland
+```
+
+Build the project:
+
 ```bash
 mkdir build
 cd build
 cmake ..
 make
+```
+
+### Build Options
+
+You can disable building specific components:
+
+```bash
+cmake -DBUILD_TRIGGER_CLIENT=OFF ..  # Skip trigger_client
+cmake -DBUILD_GATEKEEPER=OFF ..      # Skip gatekeeper
 ```
 
 ## Installing
@@ -40,7 +65,7 @@ sudo make install
 ```
 
 This will install:
-- `trigger_client` executable to `/usr/local/bin`
+- `trigger_client` executable to `/usr/local/bin` (if built)
 - `gatekeeper.py`, `test_client.py`, and `generate_protocols.py` to `/usr/local/bin`
 
 ## Running
@@ -78,4 +103,27 @@ To test the gatekeeper with a test client:
 
 ```bash
 ./test_client.py
+```
+
+## Project Structure
+
+```
+mir-extras/
+├── CMakeLists.txt              # Main CMake configuration
+├── README.md                   # This file
+├── LICENSE                     # Project license
+├── .gitignore                  # Git ignore rules
+├── wayland-protocols/          # Wayland protocol XML files
+│   ├── ext-input-trigger-registration-v1.xml
+│   └── ext-input-trigger-action-v1.xml
+├── trigger_client/             # C++ Wayland client
+│   ├── CMakeLists.txt
+│   ├── README.md
+│   └── main.cpp
+└── gatekeeper/                 # Python D-Bus portal
+    ├── CMakeLists.txt
+    ├── README.md
+    ├── gatekeeper.py
+    ├── test_client.py
+    └── generate_protocols.py
 ```
