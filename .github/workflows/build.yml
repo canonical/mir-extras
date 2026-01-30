@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          cmake \
+          build-essential \
+          pkg-config \
+          libwayland-dev \
+          libxkbcommon-dev \
+          wayland-protocols
+    
+    - name: Configure CMake
+      run: |
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+    
+    - name: Build
+      run: |
+        cd build
+        make -j$(nproc)
+    
+    - name: Build with trigger_client disabled
+      run: |
+        mkdir build-no-trigger
+        cd build-no-trigger
+        cmake .. -DBUILD_TRIGGER_CLIENT=OFF
+        make -j$(nproc)
+    
+    - name: Build with gatekeeper disabled
+      run: |
+        mkdir build-no-gatekeeper
+        cd build-no-gatekeeper
+        cmake .. -DBUILD_GATEKEEPER=OFF
+        make -j$(nproc)
