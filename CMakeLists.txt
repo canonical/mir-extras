@@ -11,15 +11,24 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Options for building components
-option(BUILD_TRIGGER_CLIENT "Build the trigger_client component" ON)
-option(BUILD_GATEKEEPER "Build the gatekeeper component" ON)
+# Define available components
+set(AVAILABLE_COMPONENTS trigger_client gatekeeper)
 
-# Add subprojects
-if(BUILD_TRIGGER_CLIENT)
-    add_subdirectory(trigger_client)
+# Option for selecting components to build (defaults to all)
+set(COMPONENTS "all" CACHE STRING "Components to build (semicolon-separated list or 'all')")
+
+# Process COMPONENTS option
+if(COMPONENTS STREQUAL "all")
+    set(COMPONENTS_TO_BUILD ${AVAILABLE_COMPONENTS})
+else()
+    set(COMPONENTS_TO_BUILD ${COMPONENTS})
 endif()
 
-if(BUILD_GATEKEEPER)
-    add_subdirectory(gatekeeper)
-endif()
+# Add subprojects based on selected components
+foreach(COMPONENT ${COMPONENTS_TO_BUILD})
+    if(NOT COMPONENT IN_LIST AVAILABLE_COMPONENTS)
+        message(WARNING "Unknown component: ${COMPONENT}")
+    else()
+        add_subdirectory(${COMPONENT})
+    endif()
+endforeach()

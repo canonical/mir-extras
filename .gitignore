@@ -1,42 +1,6 @@
 # Build directories
-build/
-build-*/
-cmake-build-*/
+build*
 
-# CMake generated files
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-*.cmake
-!CMakeLists.txt
+# CodeQL
+_codeql_detected_source_root
 
-# Generated files
-trigger_client/generated/
-gatekeeper/protocols/
-
-# Compiled binaries
-trigger_client/trigger_client
-*.o
-*.a
-*.so
-*.so.*
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.egg-info/
-dist/
-.Python
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Install artifacts
-install_manifest.txt

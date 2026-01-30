@@ -36,8 +36,7 @@ Install dependencies:
 sudo apt install libwayland-dev libxkbcommon-dev wayland-protocols
 
 # For gatekeeper
-sudo apt install python3 python3-gi gir1.2-gtk-4.0
-pip3 install pywayland
+sudo apt install python3 python3-pywayland python3-gi gir1.2-gtk-4.0
 ```
 
 Build the project:
@@ -51,11 +50,12 @@ make
 
 ### Build Options
 
-You can disable building specific components:
+You can build specific components:
 
 ```bash
-cmake -DBUILD_TRIGGER_CLIENT=OFF ..  # Skip trigger_client
-cmake -DBUILD_GATEKEEPER=OFF ..      # Skip gatekeeper
+cmake -Bbuild -DCOMPONENTS="trigger_client" .  # Build only trigger_client
+cmake -Bbuild -DCOMPONENTS="gatekeeper" .      # Build only gatekeeper
+cmake -Bbuild -DCOMPONENTS="trigger_client;gatekeeper" .  # Build specific components
 ```
 
 ## Running
@@ -70,45 +70,26 @@ The trigger_client requires a Wayland compositor that implements the ext-input-t
 
 ### gatekeeper
 
-The Python protocol bindings are automatically generated during the build process (requires pywayland).
+The Python protocol bindings are automatically generated during the build process (requires python3-pywayland).
 
-Run the gatekeeper:
+Run the gatekeeper from the build directory:
 
 ```bash
+cd build/gatekeeper
 ./gatekeeper.py
 ```
 
 To show the shortcuts UI:
 
 ```bash
+cd build/gatekeeper
 ./gatekeeper.py --show-shortcuts
 ```
 
 To test the gatekeeper with a test client:
 
 ```bash
+cd build/gatekeeper
 ./test_client.py
 ```
 
-## Project Structure
-
-```
-mir-extras/
-├── CMakeLists.txt              # Main CMake configuration
-├── README.md                   # This file
-├── LICENSE                     # Project license
-├── .gitignore                  # Git ignore rules
-├── wayland-protocols/          # Wayland protocol XML files
-│   ├── ext-input-trigger-registration-v1.xml
-│   └── ext-input-trigger-action-v1.xml
-├── trigger_client/             # C++ Wayland client
-│   ├── CMakeLists.txt
-│   ├── README.md
-│   └── main.cpp
-└── gatekeeper/                 # Python D-Bus portal
-    ├── CMakeLists.txt
-    ├── README.md
-    ├── gatekeeper.py
-    ├── test_client.py
-    └── generate_protocols.py
-```
