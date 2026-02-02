@@ -27,7 +27,7 @@ if(Python3_FOUND)
         # Generate the protocol bindings using the generate_protocols.py script
         add_custom_command(
             OUTPUT ${PROTOCOLS_OUTPUT_DIR}/__init__.py
-            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/generate_protocols.py
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/generate_protocols.py ${PROTOCOL_DIR}
             DEPENDS 
                 ${CMAKE_CURRENT_SOURCE_DIR}/generate_protocols.py
                 ${PROTOCOL_DIR}/ext-input-trigger-action-v1.xml
