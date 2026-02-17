@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Define available components
-set(AVAILABLE_COMPONENTS trigger_client gatekeeper)
+set(AVAILABLE_COMPONENTS trigger_client gatekeeper split_client)
 
 # Option for selecting components to build (defaults to all)
 set(COMPONENTS "all" CACHE STRING "Components to build (semicolon-separated list or 'all')")
