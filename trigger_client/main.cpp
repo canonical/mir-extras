@@ -277,6 +277,15 @@ int main(int /*argc*/, char** /*argv*/)
         "Hello from duplicate ALT + x",
         "Bye from duplicate ALT + x"};
 
+    // Register keyboard sym trigger: Right Alt + S (side-specific modifier)
+    SymTrigger right_alt_s{
+        display,
+        "RIGHT ALT + s",
+        EXT_INPUT_TRIGGER_REGISTRATION_MANAGER_V1_MODIFIERS_ALT_RIGHT,
+        XKB_KEY_s,
+        "Hello from RIGHT ALT + s",
+        "Bye from RIGHT ALT + s"};
+
     // Register keyboard code trigger: Alt + Z (scancode 44)
     // Scancode 44 is the physical 'Z' key position on QWERTY keyboards
     CodeTrigger alt_z{
@@ -292,6 +301,7 @@ int main(int /*argc*/, char** /*argv*/)
     std::cout << "  [" << status(ctrl_shift_c) << "] Ctrl+Shift+C (keysym trigger)\n";
     std::cout << "  [" << status(alt_x) << "] Alt+X (keysym trigger)\n";
     std::cout << "  [" << status(duplicate_alt_x) << "] Duplicate Alt+X (keysym trigger)\n";
+    std::cout << "  [" << status(right_alt_s) << "] Right Alt+S (keysym trigger, side-specific modifier)\n";
     std::cout << "  [" << status(alt_z) << "] Alt+Z (keycode trigger - works regardless of layout)\n\n";
 
     // Enter the dispatch loop
